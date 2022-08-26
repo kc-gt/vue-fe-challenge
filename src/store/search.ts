@@ -34,6 +34,7 @@ export const useSearchStore = defineStore('search', () => {
   async function getAllResults(): Promise<Company[] | null> {
     loading.value = true
     const { data } = await useLocalFetch(baseurl).get().json()
+
     if (data.value) {
       companies.value = data.value as Company[]
       resultCount.value = companies.value.length
@@ -41,6 +42,9 @@ export const useSearchStore = defineStore('search', () => {
         if (curComp.starred)
           starCount.value++
       }
+    }
+    else {
+      alert('Failed getting data from database')
     }
     loading.value = false
     return companies.value
@@ -61,6 +65,9 @@ export const useSearchStore = defineStore('search', () => {
       companies.value = data.value as Company[]
       resultCount.value = companies.value.length
     }
+    else {
+      alert('Failed getting data from database')
+    }
     loading.value = false
     return companies.value
   }
@@ -79,6 +86,9 @@ export const useSearchStore = defineStore('search', () => {
         starCount.value++
       else
         starCount.value--
+    }
+    else {
+      alert('Failed setting data')
     }
 
     return true
