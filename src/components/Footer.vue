@@ -9,7 +9,7 @@ const toggleLocales = () => {
 </script>
 
 <template>
-  <footer class="fixed bottom-0 w-full py-5 text-center text-white bg-[#1e2549]">
+  <footer class="fixed bottom-0 w-full py-2 text-center text-white bg-[#1e2549]">
     <nav text-xl mt-6>
       <a class="icon-btn mx-2" :title="t('button.toggle_langs')" @click="toggleLocales()">
         <div i-carbon-language />

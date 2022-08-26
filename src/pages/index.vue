@@ -1,16 +1,23 @@
 <script setup lang="ts">
+import { useSearchStore } from '~/store/search'
+
 const { t } = useI18n()
+const searchStore = useSearchStore()
+
+onMounted(() => {
+  searchStore.getAllResults()
+})
 </script>
 
 <template>
-  <section class="bg-[#6476ff] py-10">
+  <section class="bg-[#6476ff] py-10 flex justify-center">
     <SearchInput />
   </section>
 
   <section class="p-10">
-    <span class="font-bold text-xl uppercase">
+    <!-- <span class="font-bold text-xl uppercase">
       {{ t('results') }}:
-    </span>
+    </span> -->
 
     <SearchResultList />
   </section>
