@@ -1,5 +1,5 @@
 ## Note to reviewers
-Hi, I hope this app gives you an idea on how I can quickly develop a frontend app that is structured, functional, and styled.  This was based off of a Vitesse template using the latest Vue.js. You may have to update some of your local package versions to the latest (like Node). If I had more time I would have added more error handling, components, generalized styling classes, and much more. I would have also added a lot more search options and filters, scrolling auto loading more results, and other nice to have features.
+Hi, I hope this app gives you an idea of how I can quickly develop a frontend app that is structured, functional, and styled.  This was based off of a Vitesse template using the latest Vue.js. You may have to update some of your local package versions to the latest (like Node). If I had more time I would have added better error handling, components, generalized styling classes, and much more. I would have also added a lot more search options and filters, scrolling auto loads more results (paging), and other nice to have features.
 
 ## Getting started
 
