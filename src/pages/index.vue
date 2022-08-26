@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useSearchStore } from '~/store/search'
 
-const { t } = useI18n()
 const searchStore = useSearchStore()
 
 onMounted(() => {

@@ -29,8 +29,10 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
-    "@iconify-json/carbon": "^1.1.7",
+    "@dicebear/adventurer": "^4.10.2",
+    "@dicebear/avatars": "^4.9.1",
     "@iconify-json/akar-icons": "^1.1.7",
+    "@iconify-json/carbon": "^1.1.7",
     "@iconify-json/eos-icons": "^1.1.2",
     "@intlify/vite-plugin-vue-i18n": "^6.0.0",
     "@types/markdown-it-link-attributes": "^3.0.1",
@@ -43,8 +45,10 @@
     "eslint": "^8.21.0",
     "eslint-plugin-cypress": "^2.12.1",
     "https-localhost": "^4.7.1",
+    "json-server": "^0.16.3",
     "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-shiki": "^0.5.1",
+    "npm-run-all": "^4.1.5",
     "pnpm": "^7.8.0",
     "shiki": "^0.10.1",
     "taze": "^0.7.6",
@@ -62,10 +66,6 @@
     "vite-ssg": "^0.20.2",
     "vite-ssg-sitemap": "^0.3.1",
     "vitest": "^0.21.0",
-    "vue-tsc": "^0.39.5",
-    "@dicebear/avatars": "^4.9.1",
-    "@dicebear/adventurer": "^4.10.2",
-    "json-server": "^0.16.3",
-    "npm-run-all": "^4.1.5"
+    "vue-tsc": "^0.39.5"
   }
 }

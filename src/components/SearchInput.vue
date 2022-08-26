@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useThrottleFn } from '@vueuse/core'
+// import { type useTimeout } from '@vueuse/core'
 import { useSearchStore } from '~/store/search'
 
 const { t } = useI18n()
 const searchStore = useSearchStore()
 const searchVal = ref('')
 const reset = ref(false)
-const timerid = ref(0)
+const timerid = ref()
 
 const runSearch = useThrottleFn(() => {
   reset.value = false
