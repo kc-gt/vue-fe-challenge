@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 This uses json-server, but with the module approach: https://github.com/typicode/json-server#module
 Downside: You can't pass the json-server command line options.
