@@ -1,29 +1,82 @@
 <script setup lang="ts">
-import { useSearchStore } from '~/store/search'
+import { type Address, useSearchStore } from '~/store/search'
 
-defineProps<{
+const props = defineProps<{
+  id: string
   name: string
   starred: boolean
   description: string
+  address: Address
+  image: string | undefined
 }>()
 
 const searchStore = useSearchStore()
+const svgData = ref('')
+const starredRef = ref(false)
+
+starredRef.value = props.starred
 
 async function toggleStarred(): Promise<void> {
-  searchStore.setStarred(!props.company.starred)
+  searchStore.setStarred(JSON.parse(JSON.stringify(props)), !starredRef.value)
+  starredRef.value = !starredRef.value
 }
+
+onMounted(async () => {
+  if (props.image) {
+    const svgResponse = await fetch(props.image)
+    svgResponse.text().then((htmlsvg) => {
+      svgData.value = htmlsvg
+    })
+  }
+})
 </script>
 
 <template>
-  <div class="flex justify-around">
-    <div>{{ name }}</div>
+  <div class="flex p-7 shadow-md border-1 rounded-2 m-5 flex-col justify-start items-center relative hover:(cursor-pointer border-red-400 transition-colors)" @click="toggleStarred()">
+    <div v-if="starredRef">
+      <carbon:star-filled class="star text-yellow-300" />
+    </div>
+    <div v-else>
+      <carbon:star class="star" />
+    </div>
 
-    <div>{{ description }}</div>
+    <div class="text-xl text-black">
+      {{ name }}
+    </div>
 
-    <div>{{ starred }}</div>
+    <div class="text-gray-500">
+      {{ description }}
+    </div>
 
-    <a role="button" tabindex="0" @click="company.starred = !company.starred" @keydown.enter.exact="company.starred = !company.starred">
-      star
-    </a>
+    <div class="flex w-full items-center justify-start">
+      <svg class="w-1/3" v-html="svgData" />
+      <div v-if="address" class="address-container">
+        <span class="addressline">
+          {{ address.address1 }}
+        </span>
+        <span class="addressline">
+          {{ address.address2 }}
+        </span>
+        <span class="addressline">
+          {{ address.city }}, {{ address.state }} {{ address.postalCode }}
+        </span>
+      </div>
+      <div v-else class="address-container">
+        <span class="text-gray-400 italic">No Address</span>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped lang="css">
+.star {
+  @apply text-3xl absolute top-2 left-2
+}
+
+.address-container {
+  @apply w-2/3 ml-3 text-blue-900 flex flex-col items-start justify-center
+}
+.addressline {
+  @apply text-lg
+}
+</style>
