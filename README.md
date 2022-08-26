@@ -1,78 +1,114 @@
-<p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/154486817-f86b8f20-5463-4122-b6e9-930622e757f2.png' alt='Vitesse - Opinionated Vite Starter Template' width='600'/>
-</p>
+## Note to reviewers
+Hi, I hope this app gives you an idea on how I can quickly develop a frontend app that is structured, functional, and styled.  This was based off of a Vitesse template using the latest Vue.js. You may have to update some of your local package versions to the latest (like Node). If I had more time I would have added more error handling, components, generalized styling classes, and much more. I would have also added a lot more search options and filters, scrolling auto loading more results, and other nice to have features.
 
-<p align='center'>
-Mocking up web app with <b>Vitesse</b><sup><em>(speed)</em></sup><br>
-</p>
+## Getting started
 
-<br>
+> Vitesse requires Node >=14.18 !!
 
-<p align='center'>
-<a href="https://vitesse.netlify.app/">Live Demo</a>
-</p>
+Install project dependencies
+```
+pnpm install
+```
 
-<br>
+Generate Mock DB
+```
+pnpm prestart:api
+```
 
-<p align='center'>
-<b>English</b> | <a href="https://github.com/antfu/vitesse/blob/main/README.zh-CN.md">简体中文</a>
-<!-- Contributors: Thanks for getting interested, however we DON'T accept new transitions to the README, thanks. -->
-</p>
+Start the frontend and the mock backend together
+```
+pnpm start:mock
+```
 
-<br>
+Or start the frontend by itself and access at `http://localhost:3333`
+```
+pnpm dev
+```
 
-
-## Features
-
-- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite 3](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
-
-- 🗂 [File based routing](./src/pages)
-
-- 📦 [Components auto importing](./src/components)
-
-- 🍍 [State Management via Pinia](https://pinia.vuejs.org/)
-
-- 📑 [Layout system](./src/layouts)
-
-- 📲 [PWA](https://github.com/antfu/vite-plugin-pwa)
-
-- 🎨 [UnoCSS](https://github.com/antfu/unocss) - the instant on-demand atomic CSS engine
-
-- 😃 [Use icons from any icon sets with classes](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
-
-- 🌍 [I18n ready](./locales)
-
-- 🗒 [Markdown Support](https://github.com/antfu/vite-plugin-vue-markdown)
-
-- 🔥 Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
-
-- 🤙🏻 [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) enabled
-
-- 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
-
-- 🖨 Static-site generation (SSG) via [vite-ssg](https://github.com/antfu/vite-ssg)
-
-- 🦔 Critical CSS via [critters](https://github.com/GoogleChromeLabs/critters)
-
-- 🦾 TypeScript, of course
-
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest), E2E Testing with [Cypress](https://cypress.io/) on [GitHub Actions](https://github.com/features/actions)
-
-- ☁️ Deploy on Netlify, zero-config
-
-<br>
+Or start the backend by itself and access at `http://localhost:3001`
+```
+pnpm start:api
+```
 
 
-## Pre-packed
+### Data models
 
-### UI Frameworks
+This database will create a random collection of fake Companies for you to connect your app to. The data is re-generated each time you start the server.
 
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine.
+```typescript
+interface Address {
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  postalCode: string;
+}
 
-### Icons
+interface Company {
+  id: string;
+  starred: boolean;
+  name: string;
+  description: string;
+  address: Address;
+  image?: string;
+}
+```
 
-- [Iconify](https://iconify.design) - use icons from any icon sets [🔍Icônes](https://icones.netlify.app/)
-- [Pure CSS Icons via UnoCSS](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
+### Supported routes
+
+```
+GET    /search
+GET    /search/:id
+POST   /search
+PUT    /search/:id
+PATCH  /search/:id
+DELETE /search/:id
+```
+
+When doing requests, it's good to know that:
+
+- If you make POST, PUT, PATCH or DELETE requests, changes will be automatically and safely saved to `db.json` using [lowdb](https://github.com/typicode/lowdb).
+- Changes will persist so long as the server is running and will be overwritten next time the server is started
+- Your request body JSON should be object enclosed, just like the GET output. (for example `{"name": "Foobar"}`)
+- Id values are not mutable. Any `id` value in the body of your PUT or PATCH request will be ignored. Only a value set in a POST request will be respected, but only if not already taken.
+- A POST, PUT or PATCH request should include a `Content-Type: application/json` header to use the JSON in the request body. Otherwise it will return a 2XX status code, but no changes will be made to the data.
+
+### Search
+
+Add `q` to search ALL the fields for a string
+
+```
+GET /search?q=fish
+```
+
+Search individual fields by field name. Use `.` to access deep properties
+
+```
+GET /search?id=company.5
+GET /search?name=snake
+GET /search?taxonomy.family=dog
+```
+
+Add `_like` to filter (RegExp supported)
+
+```
+GET /search?name_like=cat
+```
+
+### Full-text search
+
+### Paginate
+
+Use `_page` and optionally `_limit` to paginate returned data.
+
+In the `Link` header you'll get `first`, `prev`, `next` and `last` links.
+
+```
+GET /search?_page=7
+GET /search?_page=7&_limit=20
+```
+
+By default ALL matching results are returned
 
 ### Plugins
 
@@ -135,78 +171,3 @@ As this template is strongly opinionated, the following provides a curated list 
 - [vitesse-lite-react](https://github.com/lxy-yz/vitesse-lite-react) by [@lxy-yz](https://github.com/lxy-yz) - vitesse-lite React fork
 - [vide](https://github.com/Nico-Mayer/vide) by [@nico-mayer](https://github.com/Nico-Mayer) - Vite superlight Beginner Starter Template
 - [vitesse-h5](https://github.com/YunYouJun/vitesse-h5) by [@YunYouJun](https://github.com/YunYouJun) - Vitesse for Mobile
-
-## Try it now!
-
-> Vitesse requires Node >=14.18
-
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/antfu/vitesse/generate).
-
-### Clone to local
-
-If you prefer to do it manually with the cleaner git history
-
-```bash
-npx degit antfu/vitesse my-vitesse-app
-cd my-vitesse-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
-```
-
-## Checklist
-
-When you use this template, try follow the checklist to update your info properly
-
-- [ ] Change the author name in `LICENSE`
-- [ ] Change the title in `App.vue`
-- [ ] Change the hostname in `vite.config.ts`
-- [ ] Change the favicon in `public`
-- [ ] Remove the `.github` folder which contains the funding info
-- [ ] Clean up the READMEs and remove routes
-
-And, enjoy :)
-
-## Usage
-
-### Development
-
-Just run and visit http://localhost:3333
-
-```bash
-pnpm dev
-```
-
-### Build
-
-To build the App, run
-
-```bash
-pnpm build
-```
-
-And you will see the generated file in `dist` that ready to be served.
-
-### Deploy on Netlify
-
-Go to [Netlify](https://app.netlify.com/start) and select your clone, `OK` along the way, and your App will be live in a minute.
-
-### Docker Production Build
-
-First, build the vitesse image by opening the terminal in the project's root directory.
-
-```bash
-docker buildx build . -t vitesse:latest
-```
-
-Run the image and specify port mapping with the `-p` flag.
-
-```bash
-docker run --rm -it -p 8080:80 vitesse:latest
-```
-
-## Why
-
-I have created several Vite apps recently. Setting the configs up is kinda the bottleneck for me to make the ideas simply come true within a very short time.
-
-So I made this starter template for myself to create apps more easily, along with some good practices that I have learned from making those apps. It's strongly opinionated, but feel free to tweak it or even maintain your own forks. [(see community maintained variation forks)](#variations)
