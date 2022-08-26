@@ -6,9 +6,6 @@ const searchStore = useSearchStore()
 async function showStarred() {
   searchStore.getStarred()
 }
-
-onMounted(() => {
-})
 </script>
 
 <template>

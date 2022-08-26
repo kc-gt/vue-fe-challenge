@@ -7,7 +7,7 @@ const props = defineProps<{
   starred: boolean
   description: string
   address: Address
-  image: string | undefined
+  image?: string
 }>()
 
 const searchStore = useSearchStore()
