@@ -26,6 +26,6 @@ const { t } = useI18n()
 
 <style scoped lang="css">
 .header {
-  @apply flex flex-row w-full justify-between items-center px-10 h-80px shadow-md  text-2xl font-bold text-[#5463d6];
+  @apply bg-white fixed z-20 h-75px flex flex-row w-full justify-between items-center px-10 shadow-md text-2xl font-bold text-[#5463d6];
 }
 </style>

@@ -29,10 +29,10 @@ const runSearch = useThrottleFn(() => {
         <eos-icons:loading class="spinner" />
       </div>
 
-      <input v-model="searchVal" class="border-1 border-gray-400 rounded-2 p-3 pr-8 shadow-md text-black" type="text" :placeholder="t('enter-search')" inputmode="text" enterkeyhint="search" @input="runSearch()">
+      <input v-model="searchVal" class="border-1 border-gray-400 rounded-2 p-3 pr-8 shadow-md text-black" type="text" :placeholder="t('enter-search')" inputmode="text" enterkeyhint="search" @input="runSearch" @keydown.enter.exact="runSearch">
     </div>
 
-    <button class="border-1 border-gray-400 rounded-2 p-2 ml-3 shadow-md bg-[#ff5b60] text-white uppercase font-bold text-xl" @click="runSearch()">
+    <button class="border-1 border-[#fa5b60] rounded-2 p-2 ml-3 shadow-md bg-[#ff5b60] text-white uppercase font-bold text-lg" @click="runSearch()">
       {{ t('search') }}
     </button>
   </div>

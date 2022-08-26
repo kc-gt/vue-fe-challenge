@@ -32,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex p-7 shadow-md border-1 rounded-2 m-5 flex-col justify-start items-center relative hover:(cursor-pointer border-red-400 transition-colors)" @click="toggleStarred()">
+  <div class="flex p-5 shadow-md  border-1 rounded-2 m-5 flex-col justify-start items-center max-w-400px bg-white relative hover:(cursor-pointer border-red-400 transition-colors)" @click="toggleStarred()">
     <div v-if="starredRef">
       <carbon:star-filled class="star text-yellow-300" />
     </div>
@@ -70,11 +70,11 @@ onMounted(async () => {
 
 <style scoped lang="css">
 .star {
-  @apply text-3xl absolute top-2 left-2
+  @apply text-xl absolute top-2 left-2
 }
 
 .address-container {
-  @apply w-2/3 ml-3 text-blue-900 flex flex-col items-start justify-center
+  @apply w-2/3 ml-3 text-blue-900 flex flex-col items-center justify-center
 }
 .addressline {
   @apply text-lg

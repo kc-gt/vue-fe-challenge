@@ -14,11 +14,7 @@ onMounted(() => {
     <SearchInput />
   </section>
 
-  <section class="p-10">
-    <!-- <span class="font-bold text-xl uppercase">
-      {{ t('results') }}:
-    </span> -->
-
+  <section class="relative">
     <SearchResultList />
   </section>
 </template>
