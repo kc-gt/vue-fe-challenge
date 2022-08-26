@@ -1,5 +1,5 @@
 {
-  "type": "module",
+  "type": "commonjs",
   "private": true,
   "packageManager": "pnpm@7.8.0",
   "scripts": {
@@ -12,7 +12,10 @@
     "test:e2e": "cypress open",
     "test:unit": "vitest",
     "typecheck": "vue-tsc --noEmit",
-    "up": "taze major -I"
+    "up": "taze major -I",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js",
+    "start:mock": "run-p dev start:api"
   },
   "dependencies": {
     "@vueuse/core": "^9.1.0",
@@ -26,7 +29,11 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
+    "@dicebear/adventurer": "^4.10.2",
+    "@dicebear/avatars": "^4.9.1",
+    "@iconify-json/akar-icons": "^1.1.7",
     "@iconify-json/carbon": "^1.1.7",
+    "@iconify-json/eos-icons": "^1.1.2",
     "@intlify/vite-plugin-vue-i18n": "^6.0.0",
     "@types/markdown-it-link-attributes": "^3.0.1",
     "@types/nprogress": "^0.2.0",
@@ -38,14 +45,17 @@
     "eslint": "^8.21.0",
     "eslint-plugin-cypress": "^2.12.1",
     "https-localhost": "^4.7.1",
+    "json-server": "^0.16.3",
     "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-shiki": "^0.5.1",
+    "npm-run-all": "^4.1.5",
     "pnpm": "^7.8.0",
     "shiki": "^0.10.1",
     "taze": "^0.7.6",
     "typescript": "^4.7.4",
     "unocss": "^0.45.5",
     "unplugin-auto-import": "^0.11.0",
+    "unplugin-icons": "^0.14.7",
     "unplugin-vue-components": "^0.22.0",
     "vite": "^3.0.4",
     "vite-plugin-inspect": "^0.6.0",
